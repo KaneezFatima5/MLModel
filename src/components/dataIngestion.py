@@ -4,6 +4,7 @@ from src.exception import CustomException
 from src.logging import logging
 from dataclasses import dataclass
 from src.utils import read_sql_data
+from sklearn.model_selection import train_test_split
 
 @dataclass
 class DataIngestionConfig:
@@ -25,8 +26,8 @@ class dataIngestion:
 
             df.to_csv(self.ingestion_config.raw_data_path, index=False, header=True)
             train_set, test_set=train_test_split(df, test_size=0.2, random_state=42)
-            df.to_csv(self.ingestion_config.train_data_path, index=False, header=True)
-            df.to_csv(self.ingestion_config.test_date_path, index=False, header=True)
+            train_set.to_csv(self.ingestion_config.train_data_path, index=False, header=True)
+            test_set.to_csv(self.ingestion_config.test_date_path, index=False, header=True)
 
             return(self.ingestion_config.train_data_path, self.ingestion_config.test_date_path)
 

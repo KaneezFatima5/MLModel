@@ -18,7 +18,7 @@ def read_sql_data():
         mydb=pymysql.connect(host=host, user=user, password=password, db=db)
         logging.info("connection established with db")
         df=pd.read_sql_query('select * from students', mydb)
-        print(db.head())
+        print(df.head())
         return df
     except Exception as e:
         raise CustomException(e, sys)
