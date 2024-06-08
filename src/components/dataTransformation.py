@@ -19,6 +19,8 @@ class datatransformation:
         self.dataTransformationConfig=dataTransformtionConfig()
     
     try:
-        pass
+        df=pd.read_csv('artifact/raw.scv')
+        numerical_features=[col for col in df.columns if df[col].dtype != 'O']
+        categorical_features=[col for col in df.columns if df[col].dtype == 'O']
     except Exception as e:
         CustomException(e, sys)
