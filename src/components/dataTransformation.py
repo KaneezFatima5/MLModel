@@ -3,6 +3,8 @@ import sys
 import pandas as pd
 import numpy as np
 from dataclasses import dataclass
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.compose import ColumnTransformer
 
 from src.exception import CustomException
 from src.logging import logging

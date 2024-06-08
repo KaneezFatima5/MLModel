@@ -6,4 +6,7 @@ mysql-connector-python
 python-dotenv
 scikit-learn
 seaborn
+catboost
+xgboost
+mlflow
 # -e .
