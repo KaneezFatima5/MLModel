@@ -5,6 +5,8 @@ import numpy as np
 from dataclasses import dataclass
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
 
 from src.exception import CustomException
 from src.logging import logging
@@ -26,10 +28,21 @@ class datatransformation:
             categorical_features=["gender", "race_ethinicity", "parental_level_of_education", "lunch", "test_preparation_course"]
             logging.info(f"there are {len(numerical_features)} numerical features: {numerical_features}")
             logging.info(f"there are {len(categorical_features)} categorical features: {categorical_features}")
+
+            numerical_pipeline=Pipeline(steps=[
+                ("imputer", SimpleImputer(strategy='median')),
+                ("Scaler", StandardScaler())
+            ])
+            categorical_pipeline=Pipeline(steps=[
+                ("imputer", SimpleImputer(strategy='most_frequent')),
+                ("OneHotEncoder", OneHotEncoder()),
+                ('Scaler', StandardScaler(with_mean=False))
+            ])
+
             preprocessor= ColumnTransformer(
                 [
-                    ("oneHotEncoder", OneHotEncoder, categorical_features),
-                    ("standardScaler", StandardScaler, numerical_features)
+                    ("numPipeline", numerical_pipeline, numerical_features),
+                    ("catPipeline", categorical_pipeline, categorical_features)
                 ]
             )
             return preprocessor
