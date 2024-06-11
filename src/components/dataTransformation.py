@@ -50,4 +50,13 @@ class datatransformation:
         except Exception as e:
             CustomException(e, sys)
 
-    # def intitiate_data_transformation(self, train_path, test_path):
+    def intitiate_data_transformation(self, train_path, test_path):
+        try:
+            train_df=pd.read_csv(train_path)
+            test_df=pd.read_csv(test_df)
+
+            logging.info("Reading train and test files")
+
+        except Exception as e:
+            raise CustomException(e, sys)
+        
